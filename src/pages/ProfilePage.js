@@ -3,8 +3,8 @@ import React from 'react';
 const ProfilePage = () => {
   return (
     <div className="profile-page">
-      <h1>User Profile</h1>
-      {/* Profile information and picture upload will go here */}
+      <h1>Profile</h1>
+      <p>Profile Page Content</p>
     </div>
   );
 };
