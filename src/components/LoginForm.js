@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../store/authSlice';
+import api from '../api/axios';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
+      const response = await api.post('/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       dispatch(login(token));

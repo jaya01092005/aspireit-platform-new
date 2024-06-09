@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({ username: '', email: '', bio: '' });
   const [editMode, setEditMode] = useState(false);
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:5000/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await api.get('/profile');
         setProfile(response.data);
       } catch (error) {
+        setError('Error fetching profile');
         console.error('Error fetching profile:', error);
       }
     };
@@ -33,28 +30,21 @@ const ProfilePage = () => {
   };
 
   const handleSave = async () => {
-    const token = localStorage.getItem('token');
     try {
-      const response = await axios.put(
-        'http://localhost:5000/profile',
-        { email: profile.email, bio: profile.bio },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.put('/profile', { email: profile.email, bio: profile.bio });
       setMessage(response.data.message);
       setEditMode(false);
+      setError('');
     } catch (error) {
+      setError('Failed to update profile');
       console.error('Error updating profile:', error);
-      setMessage('Failed to update profile.');
     }
   };
 
   return (
     <div className="profile-page">
       <h1>Profile Page</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
         <label>Username:</label>
         <span>{profile.username}</span>
