@@ -1,7 +1,12 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+
+const PrivateRoute = ({ element }) => {
+  const token = localStorage.getItem('token');
+  return token ? element : <Navigate to="/login" />;
+};
 
 const App = () => {
   return (
@@ -9,8 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<h1>Home Page</h1>} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        {/* Fallback route */}
+        <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </div>
@@ -18,4 +22,5 @@ const App = () => {
 };
 
 export default App;
+
 

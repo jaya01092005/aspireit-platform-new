@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../store/authSlice';
 
 const LoginForm = () => {
@@ -8,6 +9,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,10 +19,11 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('/login', { username, password });
+      const response = await axios.post('/api/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
       dispatch(login(token));
+      navigate('/profile');
       setError('');
     } catch (error) {
       setError('Invalid credentials');
@@ -52,3 +55,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
