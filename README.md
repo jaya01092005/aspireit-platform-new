@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# Aspireit Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for user authentication and profile management. The application uses React for the frontend and Express for the backend. It implements JWT-based authentication, responsive design using Material-UI, and secure API requests with Axios.
 
-## Available Scripts
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup](#setup)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Features
+- User authentication with JWT
+- Profile management
+- Responsive design
+- User-friendly error messages and loading indicators
 
-### `npm start`
+## Tech Stack
+- Frontend: React, Material-UI, Axios
+- Backend: Node.js, Express, JWT, Multer
+- State Management: Redux Toolkit
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/aspireit-platform.git
+   cd aspireit-platform/server
 
-### `npm test`
+2. Install the dependencies:
+   ``` bash
+   npm install
+   
+3. Start the backend server:
+   ``` bash
+   node server.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
+1. Navigate to the client directory:
+   ``` bash
+   cd ../client
 
-### `npm run build`
+2. Install the dependencies
+   ``` bash
+   npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Start the frontend development server
+   ``` bash
+   npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Usage
+1.Open your browser and navigate to http://localhost:3000/login.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.Use the following credentials to log in:
+Username: user1
+Password: password1
 
-### `npm run eject`
+3.After logging in, you will be redirected to the profile page where you can view and edit your profile details.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Project Structure
+aspireit-platform/
+|-- server/
+|   |-- uploads/
+|   |-- server.js
+|   |-- package.json
+|-- client/
+|   |-- src/
+|   |   |-- api/
+|   |   |   |-- axios.js
+|   |   |-- components/
+|   |   |   |-- LoginForm.js
+|   |   |-- pages/
+|   |   |   |-- LoginPage.js
+|   |   |   |-- ProfilePage.js
+|   |   |-- store/
+|   |   |   |-- authSlice.js
+|   |   |   |-- store.js
+|   |   |-- App.js
+|   |   |-- index.js
+|   |   |-- index.css
+|   |-- public/
+|   |   |-- index.html
+|   |-- package.json
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Learn More
+### Summary
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This `README.md` provides:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Project Overview**: A brief description of the project and its features.
+2. **Tech Stack**: The technologies used in the project.
+3. **Setup Instructions**: Detailed steps to set up the backend and frontend.
+4. **Usage Instructions**: How to use the application after setup.
+5. **Project Structure**: A directory tree to understand the project organization.
+6. **Contributing**: A section inviting contributions.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
