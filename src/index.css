@@ -1,3 +1,10 @@
+@media screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .container {
+    padding: 20px;
+  }
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -37,3 +44,11 @@ button {
   cursor: pointer;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
