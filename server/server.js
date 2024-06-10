@@ -36,12 +36,15 @@ const authenticateToken = (req, res, next) => {
 // Login endpoint
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
+  console.log('Received login request:', { username, password });
   const user = users.find((u) => u.username === username && u.password === password);
 
   if (user) {
     const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+    console.log('User authenticated, sending token');
     return res.json({ token });
   } else {
+    console.log('Invalid credentials');
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 });
