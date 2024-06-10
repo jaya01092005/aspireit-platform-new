@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../store/authSlice';
 import api from '../api/axios';
+import { TextField, Button, Container, Typography, CircularProgress } from '@mui/material';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ const LoginForm = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await api.post('/login', { username, password });
       const { token } = response.data;
@@ -27,30 +30,42 @@ const LoginForm = () => {
       setError('');
     } catch (error) {
       setError('Invalid credentials');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username</label>
-        <input
-          type="text"
+    <Container maxWidth="xs">
+      <Typography variant="h4" component="h1" gutterBottom>Login</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Username"
+          variant="outlined"
+          margin="normal"
+          fullWidth
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
+        <TextField
+          label="Password"
           type="password"
+          variant="outlined"
+          margin="normal"
+          fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
-      {error && <p>{error}</p>}
-      <button type="submit">Login</button>
-    </form>
+        {error && <Typography color="error">{error}</Typography>}
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Login
+          </Button>
+        )}
+      </form>
+    </Container>
   );
 };
 

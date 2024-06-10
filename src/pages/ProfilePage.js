@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
+import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({ username: '', email: '', bio: '' });
   const [editMode, setEditMode] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,6 +32,7 @@ const ProfilePage = () => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       const response = await api.put('/profile', { email: profile.email, bio: profile.bio });
       setMessage(response.data.message);
@@ -38,40 +41,57 @@ const ProfilePage = () => {
     } catch (error) {
       setError('Failed to update profile');
       console.error('Error updating profile:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="profile-page">
-      <h1>Profile Page</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <Container maxWidth="sm">
+      <Typography variant="h4" component="h1" gutterBottom>Profile Page</Typography>
+      {error && <Typography color="error">{error}</Typography>}
       <div>
-        <label>Username:</label>
-        <span>{profile.username}</span>
+        <Typography variant="h6">Username:</Typography>
+        <Typography>{profile.username}</Typography>
       </div>
       <div>
-        <label>Email:</label>
-        {editMode ? (
-          <input type="email" name="email" value={profile.email} onChange={handleChange} />
-        ) : (
-          <span>{profile.email}</span>
-        )}
+        <TextField
+          label="Email"
+          type="email"
+          name="email"
+          value={profile.email}
+          onChange={handleChange}
+          disabled={!editMode}
+          fullWidth
+          margin="normal"
+        />
       </div>
       <div>
-        <label>Bio:</label>
-        {editMode ? (
-          <input type="text" name="bio" value={profile.bio} onChange={handleChange} />
-        ) : (
-          <span>{profile.bio}</span>
-        )}
+        <TextField
+          label="Bio"
+          name="bio"
+          value={profile.bio}
+          onChange={handleChange}
+          disabled={!editMode}
+          fullWidth
+          margin="normal"
+        />
       </div>
       {editMode ? (
-        <button onClick={handleSave}>Save Changes</button>
+        loading ? (
+          <CircularProgress />
+        ) : (
+          <Button onClick={handleSave} variant="contained" color="primary" fullWidth>
+            Save Changes
+          </Button>
+        )
       ) : (
-        <button onClick={() => setEditMode(true)}>Edit Profile</button>
+        <Button onClick={() => setEditMode(true)} variant="contained" color="primary" fullWidth>
+          Edit Profile
+        </Button>
       )}
-      {message && <p>{message}</p>}
-    </div>
+      {message && <Typography>{message}</Typography>}
+    </Container>
   );
 };
 
