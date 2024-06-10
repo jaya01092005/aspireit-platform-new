@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
-import { Container, TextField, Button, Typography, CircularProgress } from '@mui/material';
+import { Container, TextField, Button, Typography, CircularProgress, Avatar } from '@mui/material';
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({ username: '', email: '', bio: '' });
+  const [profile, setProfile] = useState({ username: '', email: '', bio: '', profilePic: '' });
   const [editMode, setEditMode] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -31,6 +32,10 @@ const ProfilePage = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSave = async () => {
     setLoading(true);
     try {
@@ -43,6 +48,28 @@ const ProfilePage = () => {
       console.error('Error updating profile:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append('profilePic', file);
+
+    try {
+      const response = await api.post('/profile/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        profilePic: response.data.profilePic,
+      }));
+      setMessage(response.data.message);
+      setError('');
+    } catch (error) {
+      setError('Failed to upload profile picture');
+      console.error('Error uploading profile picture:', error);
     }
   };
 
@@ -76,6 +103,13 @@ const ProfilePage = () => {
           fullWidth
           margin="normal"
         />
+      </div>
+      <div>
+        <Avatar alt="Profile Picture" src={`http://localhost:5000/${profile.profilePic}`} sx={{ width: 100, height: 100 }} />
+        <input type="file" onChange={handleFileChange} />
+        <Button onClick={handleUpload} variant="contained" color="primary">
+          Upload Profile Picture
+        </Button>
       </div>
       {editMode ? (
         loading ? (
