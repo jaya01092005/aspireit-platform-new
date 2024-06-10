@@ -72,4 +72,3 @@ app.put('/profile', authenticateToken, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
