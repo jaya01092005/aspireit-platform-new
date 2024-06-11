@@ -10,7 +10,7 @@ A full-stack web application for user authentication and profile management. The
   - [Frontend](#frontend)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 - User authentication with JWT
