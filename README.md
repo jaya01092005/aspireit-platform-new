@@ -28,7 +28,7 @@ A full-stack web application for user authentication and profile management. The
 ### Backend
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/aspireit-platform.git
+   git clone https://github.com/jaya01092005/aspireit-platform.git
    cd aspireit-platform/server
 
 2. Install the dependencies:
